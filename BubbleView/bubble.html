@@ -50,7 +50,7 @@ function setup() {
   if(!p5editor){
   	canvas.parent('p5sketch');
   }
-  
+
   sharpim.resize(sketchwidth, sketchheight);
   
   blurim.resize(sketchwidth, sketchheight);
@@ -116,12 +116,15 @@ function mouseClicked(){
 
 function keyPressed() {
   if (keyCode === ENTER) {
-    clicked=false;
-    //saveTable(data, 'new.csv');
+  	//This will not work in the P5 editor
+    finished()
+  } 
+}
+
+function finished(){
+	clicked=false;
     expout = document.getElementById('expout');
     expout.value=table2csv();
-    
-  } 
 }
 
 function table2csv(){
@@ -139,8 +142,6 @@ function table2csv(){
     outstr[j]=join(tempArray,','); 
   }
   return outstrheader+'\n'+join(outstr,'\n');
-
-
 }
 
 //end P5 sketch
