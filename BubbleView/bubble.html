@@ -5,20 +5,25 @@
 
 
 <script>
-	
+
+
+//Begin P5 sketch. If you want to use develop using the editor.p5js.org, put the p5 editor variable to true
+
+
 	/*
 BubbleView (http://bubbleview.namwkim.org) is cool, not only because it seems quite usefull (for an overview of more methods see http://turkeyes.mit.edu) but I also like the interface. You can also do some more creative things with it. 
 
 This P5 sketch was made by Maarten Wijntjes, 
 
 */
+let p5editor=false
 
 let blurim,sharpim,aperture;
 let mwidth,mheight;
 
 // radius of the aperture
 let radius=50; 
-//let data=[];
+
 let trial=0;
 
 let data;
@@ -40,8 +45,12 @@ function setup() {
   blurim=sharpim.get();
   aspectratio=sharpim.height/sharpim.width
   sketchheight=sketchwidth*aspectratio;
-  canvasss=createCanvas(sketchwidth, sketchheight);
-  canvasss.parent('brownianDemo');
+
+  canvas=createCanvas(sketchwidth, sketchheight);
+  if(!p5editor){
+  	canvas.parent('p5sketch');
+  }
+  
   sharpim.resize(sketchwidth, sketchheight);
   
   blurim.resize(sketchwidth, sketchheight);
@@ -134,7 +143,7 @@ function table2csv(){
 
 }
 
-
+//end P5 sketch
 </script>
     
 <crowd-form answer-format="flatten-objects">
@@ -144,7 +153,7 @@ function table2csv(){
     press ENTER/RETURN key on your kerybord and then when finish by pressing submit</p>
     
     <br>
-        <div id="brownianDemo"></div>
+        <div id="p5sketch"></div>
     <br>
     <crowd-input hidden name="dataoutput" id="expout" placeholder=" " required></crowd-input>
 
