@@ -117,7 +117,12 @@ function mouseClicked(){
 function keyPressed() {
   if (keyCode === ENTER) {
   	//This will not work in the P5 editor
-    finished()
+  	//hier moet nog iets dat data wegschrijft in p5 editor. 
+  	if(p5editor){
+  		saveTable(data, 'new.csv');
+  	}else{
+    	finished();
+    }
   } 
 }
 
