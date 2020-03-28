@@ -10,7 +10,7 @@
 //Begin P5 sketch. If you want to use develop using the editor.p5js.org, put the p5 editor variable to true
 
 
-let p5editor=true
+let p5editor=false
 
 let n=70;// ammount of lines with which the disk is rendered
 let r=15;// size of disk and rod
@@ -42,12 +42,18 @@ let mListHeader=['baryX','baryY'];
 let timestamp;
 
 function preload() {
-  im=loadImage('https://cors-anywhere.herokuapp.com/https://homepage.tudelft.nl/w3s80/p5mturk/stim.jpg');
-  xy = loadTable('https://cors-anywhere.herokuapp.com/https://homepage.tudelft.nl/w3s80/p5mturk/list.csv', 'csv','header');
+  //im=loadImage('https://cors-anywhere.herokuapp.com/https://homepage.tudelft.nl/w3s80/p5mturk/stim.jpg');
+  //xy = loadTable('https://cors-anywhere.herokuapp.com/https://homepage.tudelft.nl/w3s80/p5mturk/list.csv', 'csv','header');
+  im=loadImage('https://materialcom.s3.eu-central-1.amazonaws.com/gaugeFigure/stim.jpg');
+  xy = loadTable('https://materialcom.s3.eu-central-1.amazonaws.com/gaugeFigure/list.csv', 'csv','header');
 }
 
 function setup() {
-  createCanvas(600, 600);
+  canvas=createCanvas(600, 600);
+  if(!p5editor){
+    canvas.parent('p5sketch');
+  }
+
   noCursor();
   nPoints = xy.getRowCount();
   for (let i=0; i<n; i++){
@@ -181,8 +187,7 @@ function thefun(){
 <crowd-form answer-format="flatten-objects">
 
     <p style="font-size:30px">
-        Click on some parts of this image to find out what it is, 
-    press ENTER/RETURN key on your kerybord and then when finish by pressing submit</p>
+        Adjust orientation of probe so that it lies flat on the pictorial surface</p>
     
     <br>
         <div id="p5sketch"></div>
