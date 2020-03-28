@@ -4,7 +4,7 @@
 //Begin P5 sketch. If you want to use develop using the editor.p5js.org, put the p5 editor variable to true
 
 
-let p5editor=false
+let p5editor=true
 let stimname='matte';
 
 
@@ -32,6 +32,7 @@ let counter = 0;
 let ranord;
 
 let data;
+let running=true;
 
 let header=['x','y','phi','theta','time (ms)'];
 let mListHeader=['baryX','baryY'];
@@ -45,7 +46,7 @@ function preload() {
 }
 
 function setup() {
-  canvas=createCanvas(600, 600);
+  canvas=createCanvas(im.width, im.height);
   if(!p5editor){
     canvas.parent('p5sketch');
   }
@@ -70,6 +71,7 @@ function setup() {
 }
 
 function draw() {
+  if(running){
   trial=ranord[counter];
   //print(counter);
   //print(ranord);
@@ -94,6 +96,12 @@ function draw() {
   
   drawEllipse(x,y,thetaGlobal,phiGlobal);
   drawRod(x,y,thetaGlobal,phiGlobal);
+  }else{
+   background(160,190,210);
+    noStroke();
+    fill(128,0,0);
+    text('Thanks! you can press submit now!',20,im.height/2);
+  }
 }
 
 function drawEllipse(x, y, theta, phi){
@@ -135,7 +143,7 @@ function mousePressed(){
   
   
   if(counter>=nPoints){
-    
+    running=false;
     if(p5editor){
       saveTable(data, 'new.csv');
     }else{
