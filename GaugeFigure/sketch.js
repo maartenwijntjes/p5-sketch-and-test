@@ -1,12 +1,8 @@
-
-
-
-//Begin P5 sketch. If you want to use develop using the editor.p5js.org, put the p5 editor variable to true
-
-
-let p5editor=true
+let p5editor=false
 let stimname='matte';
 
+practiceTrials=10;
+practice=true;
 
 let n=70;// ammount of lines with which the disk is rendered
 let r=15;// size of disk and rod
@@ -26,7 +22,7 @@ let xy;
 let x,y;
 let nPoints;
 let trial;
-let stim = 'vSK-A-465';
+
 
 let counter = 0;
 let ranord;
@@ -39,8 +35,6 @@ let mListHeader=['baryX','baryY'];
 let timestamp;
 
 function preload() {
-  //im=loadImage('https://cors-anywhere.herokuapp.com/https://homepage.tudelft.nl/w3s80/p5mturk/stim.jpg');
-  //xy = loadTable('https://cors-anywhere.herokuapp.com/https://homepage.tudelft.nl/w3s80/p5mturk/list.csv', 'csv','header');
   im=loadImage('https://materialcom.s3.eu-central-1.amazonaws.com/gaugeFigure/'+stimname+'.jpg');
   xy = loadTable('https://materialcom.s3.eu-central-1.amazonaws.com/gaugeFigure/'+stimname+'.csv', 'csv','header');
 }
@@ -72,36 +66,47 @@ function setup() {
 
 function draw() {
   if(running){
-  trial=ranord[counter];
-  //print(counter);
-  //print(ranord);
-  
-  x=int(xy.get(trial,0));
-  y=int(xy.get(trial,1));
-  
-  background(225);
-  
-  image(im,0,0);
-  noStroke()
-  fill(255,0,0)
-  textSize(16);
-  text('trial '+(counter+1)+' of '+nPoints,10,20);
-  
-  // phi and theta are defined by the mouse position with respect to the middle of the screen
-  let phi=sqrt(pow((mouseX-width/2),2)+pow((mouseY-height/2),2))/PHI_GAIN;
-  if (phi>=PI/2){phi=PI/2;}
-  let theta=arctan(mouseX-width/2,mouseY-height/2);
-  phiGlobal=phifun();
-  thetaGlobal=thefun();
-  
-  drawEllipse(x,y,thetaGlobal,phiGlobal);
-  drawRod(x,y,thetaGlobal,phiGlobal);
+    if(counter>=0){
+
+      trial=ranord[counter];
+      x=int(xy.get(trial,0));
+      y=int(xy.get(trial,1));
+      
+      background(225);
+      image(im,0,0);
+      noStroke()
+      fill(255,0,0)
+      textSize(16);
+      if(practice){
+        text('Practice trial '+(counter+1)+' of '+practiceTrials,10,20);
+      }else{
+        text('trial '+(counter+1)+' of '+nPoints,10,20);
+      }
+      
+      // phi and theta are defined by the mouse position with respect to the middle of the screen
+      let phi=sqrt(pow((mouseX-width/2),2)+pow((mouseY-height/2),2))/PHI_GAIN;
+      if (phi>=PI/2){phi=PI/2;}
+      let theta=arctan(mouseX-width/2,mouseY-height/2);
+      phiGlobal=phifun();
+      thetaGlobal=thefun();
+      
+      drawEllipse(x,y,thetaGlobal,phiGlobal);
+      drawRod(x,y,thetaGlobal,phiGlobal);
+    }
+    else{
+      background(160,190,210);
+      noStroke();
+      fill(128,0,0);
+      text('Actual experiment starts now!',20,im.height/2);
+    }
+
   }else{
-   background(160,190,210);
+    background(160,190,210);
     noStroke();
     fill(128,0,0);
     text('Thanks! you can press submit now!',20,im.height/2);
   }
+  
 }
 
 function drawEllipse(x, y, theta, phi){
@@ -140,7 +145,12 @@ function mousePressed(){
   newRow.setNum('time (ms)',int(millis()-timestamp));
   timestamp=millis();
   counter++;
-  
+  if(practice){
+    if(counter>=practiceTrials){
+     practice=false;
+      counter=-1;
+    }
+  }
   
   if(counter>=nPoints){
     running=false;
@@ -190,5 +200,3 @@ function thefun(){
   return theta; 
 }
 
-
-//end P5 sketch
