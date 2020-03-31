@@ -35,8 +35,8 @@ let mListHeader=['baryX','baryY'];
 let timestamp;
 
 function preload() {
-  im=loadImage('https://materialcom.s3.eu-central-1.amazonaws.com/gaugeFigure/'+stimname+'.jpg');
-  xy = loadTable('https://materialcom.s3.eu-central-1.amazonaws.com/gaugeFigure/'+stimname+'.csv', 'csv','header');
+  im=loadImage('https://materialcom.s3.eu-central-1.amazonaws.com/gaugefigure/'+stimname+'.jpg');
+  xy = loadTable('https://materialcom.s3.eu-central-1.amazonaws.com/gaugefigure/'+stimname+'.csv', 'csv','header');
 }
 
 function setup() {

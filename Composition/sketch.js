@@ -3,14 +3,18 @@ let running=true;
 
 let dataHeader=['x','y'];
 let counter = 0;
-let maxtrials = 10;
+let maxtrials = 1;
+let data;
 
-function preload() {
-  im=loadImage('https://materialcom.s3.eu-central-1.amazonaws.com/template/images/1945.15.4.jpg');
+function preload(){
+  im1=loadImage('https://materialcom.s3.eu-central-1.amazonaws.com/composition/images/staalmeesters1.png');
+  im2=loadImage('https://materialcom.s3.eu-central-1.amazonaws.com/composition/images/staalmeesters2.png');
+  im3=loadImage('https://materialcom.s3.eu-central-1.amazonaws.com/composition/images/staalmeesters3.png');
+  
 }
 
 function setup() {
-  canvas=createCanvas(im.width, im.height);
+  canvas=createCanvas(im1.width, im1.height);
   if(!p5editor){
     canvas.parent('p5sketch');
   }
@@ -23,8 +27,9 @@ function setup() {
 
 function draw() {
   if(running){
-    image(im,0,0);
-    text('counter = ' + counter,20,20);
+    image(im1,0,0);
+    image(im3,mouseX-80,mouseY-300);
+    image(im2,0,0);
     }else{
     background(160,190,210);
     noStroke();
