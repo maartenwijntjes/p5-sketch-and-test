@@ -33,7 +33,7 @@ let clicked=false;
 let header=['x','y','r','imagename'];
 
 let root='https://materialcom.s3.eu-central-1.amazonaws.com/bubbleview/stims/'
-let imnameshort='economist_daily_chart_103.png';
+let imnameshort='wsj104.png';
 let imagename=root+imnameshort;
 
 function preload(){

@@ -14,6 +14,7 @@ function preload(){
 }
 
 function setup() {
+
   canvas=createCanvas(im1.width, im1.height);
   if(!p5editor){
     canvas.parent('p5sketch');
@@ -22,19 +23,20 @@ function setup() {
   for(let i = 0; i<dataHeader.length; i++){
     data.addColumn(dataHeader[i]);
   }
-  
+  noCursor();
 }
 
 function draw() {
   if(running){
     image(im1,0,0);
-    image(im3,mouseX-80,mouseY-300);
+    image(im3,mouseX-50,mouseY-30);
     image(im2,0,0);
     }else{
     background(160,190,210);
     noStroke();
-    fill(128,0,0);
-    text('Thanks! you can press submit now!',20,im.height/2);
+    fill(0);
+    textSize(16)
+    text('Thanks! you can press submit now!\n\n(to see the \'answer\' google \"Syndics of the Drapers\' Guild\")',20,height/2);
   }
   
 }
