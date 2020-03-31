@@ -3,24 +3,21 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.10.2/p5.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.dom.min.js"></script>
 
-<script src="https://materialcom.s3.eu-central-1.amazonaws.com/bubbleview/sketch.js"></script>
-
+<!--Link to P5 sketch:-->
+<script src="https://p5paradigms.s3.eu-central-1.amazonaws.com/Template/sketch.js"></script>
     
 <crowd-form answer-format="flatten-objects">
 
     <p>
-      <strong>Instructions: </strong>
-      This is a short perception experiment. You task is to briefly describe the data visualisation below. You can click 20 times to get an area sharp. Choose wisely to optimize your understanding! 
+      <strong>Instructions: </strong> <!--WRITE INSTRUCTIONS HERE-->
     </p>
 
 
-    
     <br>
-        <div id="p5sketch"></div>
+    	<div id="p5sketch"></div>
     <br>
     
+    <!--This gets data from the P5 sketch-->
     <crowd-input hidden name="dataoutput" id="expout" placeholder=" " required></crowd-input>
-    
-    <crowd-input label="Describe what this visualisation make clear..." name="summary" required></crowd-input>
 
 </crowd-form>
