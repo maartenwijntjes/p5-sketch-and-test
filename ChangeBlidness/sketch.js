@@ -1,6 +1,11 @@
-var experiment = false
-var stimuli = []
-var counter = 0
+/*
+This P5 sketch was made by Maarten Wijntjes and Mitchell Van Zuijlen. 
+Image are from Li-Qian Ma et al. (2013). See, https://cg.cs.tsinghua.edu.cn/cbi/
+*/
+
+var experiment = false;
+var stimuli = [];
+var counter = 0;
 var max_height = 0;
 var max_width = 0;
 var image_offset = 50;
@@ -10,30 +15,30 @@ let trial;
 let timestamp;
 
 function preload() {
-
-  input_data = loadTable('input.csv', 'csv', 'header', load_images);
-  // load_images is called AFTER the table is loaded. Otherwise, the code will continue with a table object that does not have data in yet. 
+  let input_url = 'https://materialcomv2.s3.eu-central-1.amazonaws.com/changeBlindness/input.csv'
+  input_data = loadTable(input_url, 'csv', 'header', load_images);
   output_data = new p5.Table();
-  output_data.columns = ['pre','post','xfiducial','yfiducial','xchosen', 'ychosen', 'dist','rt (ms)']
+  output_data.columns = ['pre', 'post', 'xfiducial', 'yfiducial', 'xchosen', 'ychosen', 'dist', 'rt (ms)']
 
 }
 
 
 function load_images() {
+  // load_images is called AFTER the table is loaded. 
+  // Otherwise, the code will continue with a table object that does not have data in yet.
+  var url = 'https://materialcomv2.s3.eu-central-1.amazonaws.com/changeBlindness/'
   // is executed once input_data is loaded
   for (let i = 0; i < input_data.getRowCount(); i++) {
     // load the images and put them together into the trials list
     stimuli.push([
-      loadImage('images/' + input_data.getColumn('pre')[i]),
-      loadImage('images/' + input_data.getColumn('post')[i])
+      loadImage(url + input_data.getColumn('pre')[i]),
+      loadImage(url + input_data.getColumn('post')[i])
     ])
   }
 }
 
-
 function setup() {
   // create canvas equal to the largest image, plus a little extra space for text
-
   // determ which image has the biggest width/height
 
   for (let i = 0; i < stimuli.length; i++) {
@@ -46,15 +51,20 @@ function setup() {
     }
   }
 
-  createCanvas(max_width, max_height + image_offset)
+  canvas = createCanvas(max_width, max_height + image_offset)
+
+  if (onMturk()) {
+    console.log("It is on mturk.")
+    canvas.parent('p5sketch');
+  }
+
   background(128);
   textSize(18);
   text("Press enter to start!", 20, 20)
   frameRate(10);
-  
-  ranord=[...Array(input_data.getRowCount()).keys()];
-  ranord=shuffle(ranord);//if commented out, then there is no randomisation, can be helpful in preparation phase.
 
+  ranord = [...Array(input_data.getRowCount()).keys()];
+  ranord = shuffle(ranord); //if commented out, then there is no randomisation, can be helpful in preparation phase.
 }
 
 function keyPressed() {
@@ -66,10 +76,8 @@ function keyPressed() {
       experiment = true
       console.log("experiment start")
       background(128);
-      timestamp=millis();
-
+      timestamp = millis();
     }
-
   }
 }
 
@@ -83,13 +91,12 @@ function nextTrial() {
     experiment = false // experiment has ended
     console.log("experiment end");
     text("That's the end of the experiment!", 20, 20)
-    saveTable(output_data, 'data.csv');
+    finished();
   }
 }
 
 function mousePressed() {
   // This function is automatically called when the mouse buttons are pressed
-  
   if (experiment) {
     let row = output_data.addRow();
     // we add the x,y mouse position. 0,0 is top left, 1,1 is bottom right
@@ -98,36 +105,34 @@ function mousePressed() {
     // calculate distance from 'correct' answer and the given answer
     let d = float(dist(
       input_data.getColumn('x')[trial], // The 'correct' answer in the input data
-      input_data.getColumn('y')[trial],
+      input_data.getColumn('x')[trial],
       x, // the given answer from the participant
       y
     ));
-    
-    row.set('pre',input_data.get(trial,'pre'));
-    row.set('post',input_data.get(trial,'post'));
-  
-    row.setNum('xfiducial',input_data.getColumn('x')[trial]);
-    row.setNum('yfiducial',input_data.getColumn('y')[trial]);
-    
+
+    row.set('pre', input_data.get(trial, 'pre'));
+    row.set('post', input_data.get(trial, 'post'));
+
+    row.setNum('xfiducial', input_data.getColumn('x')[trial]);
+    row.setNum('yfiducial', input_data.getColumn('y')[trial]);
+
     row.setNum('xchosen', x);
     row.setNum('ychosen', y);
     row.setNum('dist', d);
-    row.setNum('rt (ms)',millis()-timestamp);
-    
-    timestamp=millis();
-    nextTrial();
+    row.setNum('rt (ms)', millis() - timestamp);
 
+    timestamp = millis();
+    nextTrial();
   }
 }
 
 
 function draw() {
 
-
   if (experiment) {
     text("Click where you see the change. Trial: " + counter, 20, 20)
-    trial=ranord[counter];
-    
+
+    trial = ranord[counter];
     stimulus = stimuli[trial];
 
     if (frameCount < 5) { // we show the first image at frame 1,2,3,4    
@@ -139,11 +144,41 @@ function draw() {
     }
 
     if (frameCount == 10) {
-      // frameCount is a p5 default variable. I.e. it already exists, without me needing to define it. Every frame it is automatically incremented.
+      // frameCount is a p5 default variable and every frame it is automatically incremented.
       frameCount = 0;
     }
   }
+}
 
-  console.log(mouseY)
+function finished() {
+  clicked = false;
+  if (onMturk()) {
+    expout = document.getElementById('expout');
+    expout.value = table2csv();
+  } else {
+    // This would work in the p5 editor
+    saveTable(output_data, 'data.csv');
+  }
+}
 
+function onMturk() {
+  console.log("Is it on mturk?")
+  return document.location['href'].includes('mturk.com')
+}
+
+function table2csv() {
+  header = output_data.columns
+  let outstrheader = join(header, ',');
+  let nrows = output_data.getRowCount();
+  let ncols = header.length;
+  let outstr = [];
+
+  for (let j = 0; j < nrows; j++) {
+    let tempArray = [];
+    for (let i = 0; i < ncols; i++) {
+      tempArray[i] = output_data.get(j, i);
+    }
+    outstr[j] = join(tempArray, ',');
+  }
+  return outstrheader + '\n' + join(outstr, '\n');
 }
