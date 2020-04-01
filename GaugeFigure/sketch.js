@@ -1,4 +1,6 @@
-let p5editor=false
+/*
+This P5 sketch was made by Maarten Wijntjes and Mitchell Van Zuijlen, 
+*/
 let stimname='matte';
 
 practiceTrials=10;
@@ -14,7 +16,7 @@ let ex = [];
 let ey = [];
 let ez = [];
 
-let phiGlobal
+let phiGlobal;
 let thetaGlobal;
 let im;
 let xy;
@@ -41,7 +43,7 @@ function preload() {
 
 function setup() {
   canvas=createCanvas(im.width, im.height);
-  if(!p5editor){
+  if (onMturk()) {
     canvas.parent('p5sketch');
   }
 
@@ -154,21 +156,20 @@ function mousePressed(){
   
   if(counter>=nPoints){
     running=false;
-    if(p5editor){
-      saveTable(data, 'new.csv');
-    }else{
-      finished();
-    }
-    
-    
+    finished();
     counter=0;
   }//hier dus een einde inbouwen!
 }
 
-function finished(){
-  clicked=false;
+function finished() {
+  clicked = false;
+  if (onMturk()) {
     expout = document.getElementById('expout');
-    expout.value=table2csv();
+    expout.value = table2csv();
+  } else {
+    // This would work in the p5 editor
+    saveTable(output_data, 'data.csv');
+  }
 }
 
 function table2csv(){
@@ -200,3 +201,6 @@ function thefun(){
   return theta; 
 }
 
+function onMturk() {
+  return document.location['href'].includes('mturk.com')
+}

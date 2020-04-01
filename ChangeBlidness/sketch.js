@@ -1,3 +1,8 @@
+/*
+This P5 sketch was made by Maarten Wijntjes and Mitchell Van Zuijlen. 
+Image are from Li-Qian Ma et al. (2013). See, https://cg.cs.tsinghua.edu.cn/cbi/
+*/
+
 var experiment = false
 var trials = []
 var trialNum = 0
@@ -7,10 +12,8 @@ var image_offset = 50;
 var trial;
 
 function preload() {
-
   let input_url = 'https://materialcomv2.s3.eu-central-1.amazonaws.com/changeBlindness/input.csv'
   input_data = loadTable(input_url, 'csv', 'header', load_images);
-  // load_images is called AFTER the table is loaded. Otherwise, the code will continue with a table object that does not have data in yet. 
   output_data = new p5.Table();
   output_data.columns = ['x', 'y', 'dist']
 
@@ -18,6 +21,8 @@ function preload() {
 
 
 function load_images() {
+  // load_images is called AFTER the table is loaded. 
+  // Otherwise, the code will continue with a table object that does not have data in yet.
   var url = 'https://materialcomv2.s3.eu-central-1.amazonaws.com/changeBlindness/'
   // is executed once input_data is loaded
   for (let i = 0; i < input_data.getRowCount(); i++) {
@@ -31,7 +36,6 @@ function load_images() {
 
 function setup() {
   // create canvas equal to the largest image, plus a little extra space for text
-
   // determ which image has the biggest width/height
 
   for (let i = 0; i < trials.length; i++) {
@@ -44,7 +48,12 @@ function setup() {
     }
   }
 
-  createCanvas(max_width, max_height + image_offset)
+  canvas = createCanvas(max_width, max_height + image_offset)
+
+  if (onMturk()) {
+    canvas.parent('p5sketch');
+  }
+
   background(128);
   textSize(18);
   text("Press enter to start!", 20, 20)
@@ -77,15 +86,13 @@ function nextTrial() {
     experiment = false // experiment has ended
     console.log("experiment end");
     text("That's the end of the experiment!", 20, 20)
-    saveTable(output_data, 'data.csv');
+    finished();
   }
 }
 
 function mousePressed() {
   // This function is automatically called when the mouse buttons are pressed
   if (experiment) {
-
-
 
     let row = output_data.addRow();
     // we add the x,y mouse position. 0,0 is top left, 1,1 is bottom right
@@ -103,7 +110,6 @@ function mousePressed() {
     row.setNum('y', y);
     row.setNum('dist', d);
 
-
     nextTrial();
 
   }
@@ -111,7 +117,6 @@ function mousePressed() {
 
 
 function draw() {
-
 
   if (experiment) {
     text("Click where you see the change. Trial: " + trialNum, 20, 20)
@@ -127,11 +132,39 @@ function draw() {
     }
 
     if (frameCount == 10) {
-      // frameCount is a p5 default variable. I.e. it already exists, without me needing to define it. Every frame it is automatically incremented.
+      // frameCount is a p5 default variable and every frame it is automatically incremented.
       frameCount = 0;
     }
   }
+}
 
-  console.log(mouseY)
+function finished() {
+  clicked = false;
+  if (onMturk()) {
+    expout = document.getElementById('expout');
+    expout.value = table2csv();
+  } else {
+    // This would work in the p5 editor
+    saveTable(output_data, 'data.csv');
+  }
+}
 
+function onMturk() {
+  return document.location['href'].includes('mturk.com')
+}
+
+function table2csv() {
+  let outstrheader = join(header, ',');
+  let nrows = data.getRowCount();
+  let ncols = header.length;
+  let outstr = [];
+
+  for (let j = 0; j < nrows; j++) {
+    let tempArray = [];
+    for (let i = 0; i < ncols; i++) {
+      tempArray[i] = data.get(j, i);
+    }
+    outstr[j] = join(tempArray, ',');
+  }
+  return outstrheader + '\n' + join(outstr, '\n');
 }
