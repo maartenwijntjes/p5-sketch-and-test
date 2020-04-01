@@ -51,6 +51,7 @@ function setup() {
   canvas = createCanvas(max_width, max_height + image_offset)
 
   if (onMturk()) {
+    console.log("It is on mturk.")
     canvas.parent('p5sketch');
   }
 
@@ -150,6 +151,7 @@ function finished() {
 }
 
 function onMturk() {
+  console.log("Is it on mturk?")
   return document.location['href'].includes('mturk.com')
 }
 
