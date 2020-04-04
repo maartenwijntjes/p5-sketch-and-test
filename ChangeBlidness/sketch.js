@@ -13,6 +13,7 @@ var stimulus;
 let ranord;
 let trial;
 let timestamp;
+var cursor_width = 64;
 
 function preload() {
   let input_url = 'https://materialcomv2.s3.eu-central-1.amazonaws.com/changeBlindness/input.csv'
@@ -77,6 +78,7 @@ function keyPressed() {
       console.log("experiment start")
       background(128);
       timestamp = millis();
+      changeCursor();
     }
   }
 }
@@ -100,8 +102,10 @@ function mousePressed() {
   if (experiment) {
     let row = output_data.addRow();
     // we add the x,y mouse position. 0,0 is top left, 1,1 is bottom right
-    x = mouseX / stimuli[trial][0].width
-    y = (mouseY - image_offset) / stimuli[trial][0].height
+    // we correct for the image_offset, and take the center of the drawn circle. The mouseX originall is the top-left corner 
+    // of the image we use to draw the mouse. 
+    x = (mouseX + cursor_width / 2) / stimuli[trial][0].width
+    y = (mouseY - image_offset + cursor_width / 2) / stimuli[trial][0].height
     // calculate distance from 'correct' answer and the given answer
     let d = float(dist(
       input_data.getColumn('x')[trial], // The 'correct' answer in the input data
@@ -126,6 +130,12 @@ function mousePressed() {
   }
 }
 
+function changeCursor() {
+  // we use an image as a cursor, instead of simply drawing an ellipse, because the drawn ellipse would only update with the 
+  // set framerate, giving it a very jarring movement 
+  let url = 'https://materialcomv2.s3.eu-central-1.amazonaws.com/changeBlindness/website-64px.png'
+  cursor(url)
+}
 
 function draw() {
 
