@@ -53,7 +53,7 @@ function setup() {
 
   canvas = createCanvas(max_width, max_height + image_offset)
 
-  if (onMturk()) {
+  if (!onP5Editor()) {
     console.log("It is on mturk.")
     canvas.parent('p5sketch');
   }
@@ -152,7 +152,7 @@ function draw() {
 
 function finished() {
   clicked = false;
-  if (onMturk()) {
+  if (!onP5Editor()) {
     expout = document.getElementById('expout');
     expout.value = table2csv();
   } else {
@@ -161,9 +161,9 @@ function finished() {
   }
 }
 
-function onMturk() {
-  console.log("Is it on mturk?")
-  return document.location['href'].includes('mturk.com')
+function onP5Editor() {
+  console.log("Are we on the p5 editor?")
+  return document.location.ancestorOrigins[0].includes('editor.p5js.org')
 }
 
 function table2csv() {

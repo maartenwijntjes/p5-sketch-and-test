@@ -13,7 +13,7 @@ function preload() {
 
 function setup() {
   canvas = createCanvas(im.width, im.height);
-  if (onMturk()) {
+  if (!onP5Editor()) {
     // on the p5 editor, the canvas is automatically attached to the DOM. If not, we need to manually attach it.
     canvas.parent('p5sketch');
   }
@@ -52,7 +52,7 @@ function mousePressed() {
 
 function finished() {
   clicked = false;
-  if (onMturk()) {
+  if (!onP5Editor()) {
     expout = document.getElementById('expout');
     expout.value = table2csv();
   } else {
@@ -78,6 +78,7 @@ function table2csv() {
   return outstrheader + '\n' + join(outstr, '\n');
 }
 
-function onMturk() {
-  return document.location['href'].includes('mturk.com')
+function onP5Editor() {
+  console.log("Are we on the p5 editor?")
+  return document.location.ancestorOrigins[0].includes('editor.p5js.org')
 }
