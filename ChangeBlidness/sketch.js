@@ -14,6 +14,7 @@ let ranord;
 let trial;
 let timestamp;
 var cursor_width = 64;
+var trial_start_time;
 
 function preload() {
   let input_url = 'https://materialcomv2.s3.eu-central-1.amazonaws.com/changeBlindness/input.csv'
@@ -31,11 +32,14 @@ function load_images() {
   // is executed once input_data is loaded
   for (let i = 0; i < input_data.getRowCount(); i++) {
     // load the images and put them together into the trials list
-    stimuli.push([
-      loadImage(url + input_data.getColumn('pre')[i]),
-      loadImage(url + input_data.getColumn('post')[i])
-    ])
+    let pre = loadImage(url + input_data.getColumn('pre')[i], resize_image)
+    let post = loadImage(url + input_data.getColumn('post')[i], resize_image)
+    stimuli.push([pre, post])
   }
+}
+
+function resize_image(image) {
+  image.resize(0, 300)
 }
 
 function setup() {
@@ -44,6 +48,7 @@ function setup() {
 
   for (let i = 0; i < stimuli.length; i++) {
     pair = stimuli[i];
+    console.log(pair[0].width)
     if (max(pair[0].width, pair[1].width) > max_width) {
       max_width = max(pair[0].width, pair[1].width)
     }
@@ -61,7 +66,7 @@ function setup() {
 
   background(128);
   textSize(18);
-  text("Press enter to start!", 20, 20)
+  text("Click here and press enter to start!", 20, 20)
   frameRate(10);
 
   ranord = [...Array(input_data.getRowCount()).keys()];
@@ -92,8 +97,9 @@ function nextTrial() {
   if (counter == stimuli.length) {
     experiment = false // experiment has ended
     console.log("experiment end");
-    text("That's the end of the experiment!", 20, 20)
+    text("That's the end of the experiment! You can now click submit", 20, 20)
     finished();
+
   }
 }
 
@@ -109,7 +115,7 @@ function mousePressed() {
     // calculate distance from 'correct' answer and the given answer
     let d = float(dist(
       input_data.getColumn('x')[trial], // The 'correct' answer in the input data
-      input_data.getColumn('x')[trial],
+      input_data.getColumn('y')[trial],
       x, // the given answer from the participant
       y
     ));
@@ -140,7 +146,8 @@ function changeCursor() {
 function draw() {
 
   if (experiment) {
-    text("Click where you see the change. Trial: " + counter, 20, 20)
+
+    text("Click where you see the change. Trial: " + counter + " of " + stimuli.length, 20, 20)
 
     trial = ranord[counter];
     stimulus = stimuli[trial];
@@ -156,6 +163,19 @@ function draw() {
     if (frameCount == 10) {
       // frameCount is a p5 default variable and every frame it is automatically incremented.
       frameCount = 0;
+    }
+
+    if (millis() > timestamp + 60000) {
+      console.log('show!')
+      // show the correct answer after a minute
+      let x = input_data.getColumn('x')[trial] * stimuli[trial][0].width
+      let y = input_data.getColumn('y')[trial] * stimuli[trial][0].height + image_offset
+      noFill();
+      stroke(255, 0, 0);
+      ellipse(x, y, 40, 40)
+      fill(0, 0, 0)
+      noStroke();
+
     }
   }
 }
@@ -173,7 +193,11 @@ function finished() {
 
 function onP5Editor() {
   console.log("Are we on the p5 editor?")
-  return document.location.ancestorOrigins[0].includes('editor.p5js.org')
+  parent = document.location.ancestorOrigins
+  if (parent.length) { // if it's in an iframe{}
+    return document.location.ancestorOrigins[0].includes('editor.p5js.org')
+  }
+  return false
 }
 
 function table2csv() {
