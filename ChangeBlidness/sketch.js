@@ -165,7 +165,7 @@ function draw() {
       frameCount = 0;
     }
 
-    if (millis() > timestamp + 60000) {
+    if (millis() > timestamp + 36000) {
       console.log('show!')
       // show the correct answer after a minute
       let x = input_data.getColumn('x')[trial] * stimuli[trial][0].width
