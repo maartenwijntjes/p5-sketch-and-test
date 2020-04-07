@@ -15,12 +15,14 @@ let trial;
 let timestamp;
 var cursor_width = 64;
 var trial_start_time;
+var spoiler = false;
+var mouseInCanvas = true;
 
 function preload() {
   let input_url = 'https://materialcomv2.s3.eu-central-1.amazonaws.com/changeBlindness/input.csv'
   input_data = loadTable(input_url, 'csv', 'header', load_images);
   output_data = new p5.Table();
-  output_data.columns = ['pre', 'post', 'xfiducial', 'yfiducial', 'xchosen', 'ychosen', 'dist', 'rt (ms)']
+  output_data.columns = ['pre', 'post', 'xfiducial', 'yfiducial', 'xchosen', 'ychosen', 'dist', 'rt (ms)', 'spoiler']
 
 }
 
@@ -58,6 +60,10 @@ function setup() {
   }
 
   canvas = createCanvas(max_width, max_height + image_offset)
+  // check if the mouse currently is in the canvas
+  canvas.mouseOver(mouseOnCanvas)
+  canvas.mouseOut(mouseOffCanvas)
+
 
   if (!onP5Editor()) {
     console.log("It is on mturk.")
@@ -103,9 +109,18 @@ function nextTrial() {
   }
 }
 
+function mouseOnCanvas() {
+  mouseInCanvas = true
+}
+
+function mouseOffCanvas() {
+  mouseInCanvas = false
+}
+
+
 function mousePressed() {
   // This function is automatically called when the mouse buttons are pressed
-  if (experiment) {
+  if (experiment & mouseInCanvas) {
     let row = output_data.addRow();
     // we add the x,y mouse position. 0,0 is top left, 1,1 is bottom right
     // we correct for the image_offset, and take the center of the drawn circle. The mouseX originall is the top-left corner 
@@ -130,6 +145,7 @@ function mousePressed() {
     row.setNum('ychosen', y);
     row.setNum('dist', d);
     row.setNum('rt (ms)', millis() - timestamp);
+    row.setNum('spoiler', spoiler ? 1 : 0); // did we show them the answer?
 
     timestamp = millis();
     nextTrial();
@@ -146,6 +162,8 @@ function changeCursor() {
 function draw() {
 
   if (experiment) {
+    console.log(mouseX)
+
 
     text("Click where you see the change. Trial: " + counter + " of " + stimuli.length, 20, 20)
 
@@ -175,7 +193,9 @@ function draw() {
       ellipse(x, y, 40, 40)
       fill(0, 0, 0)
       noStroke();
-
+      spoiler = true
+    } else {
+      spoiler = false
     }
   }
 }
