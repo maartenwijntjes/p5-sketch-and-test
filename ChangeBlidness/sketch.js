@@ -103,7 +103,7 @@ function nextTrial() {
   if (counter == stimuli.length) {
     experiment = false // experiment has ended
     console.log("experiment end");
-    text("That's the end of the experiment! You can now click submit", 20, 20)
+    text("The end. Press submit below", 20, 20)
     finished();
 
   }
@@ -183,7 +183,7 @@ function draw() {
       frameCount = 0;
     }
 
-    if (millis() > timestamp + 36000) {
+    if (millis() > timestamp + 60*1000) {
       console.log('show!')
       // show the correct answer after a minute
       let x = input_data.getColumn('x')[trial] * stimuli[trial][0].width
