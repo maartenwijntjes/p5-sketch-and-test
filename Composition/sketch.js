@@ -10,9 +10,9 @@ let maxtrials = 1;
 let data;
 
 function preload() {
-  im1 = loadImage('https://materialcom.s3.eu-central-1.amazonaws.com/composition/images/staalmeesters1.png');
-  im2 = loadImage('https://materialcom.s3.eu-central-1.amazonaws.com/composition/images/staalmeesters2.png');
-  im3 = loadImage('https://materialcom.s3.eu-central-1.amazonaws.com/composition/images/staalmeesters3.png');
+  im1 = loadImage('https://p5paradigms.s3.eu-central-1.amazonaws.com/Composition/images/staalmeesters1.png');
+  im2 = loadImage('https://p5paradigms.s3.eu-central-1.amazonaws.com/Composition/images/staalmeesters2.png');
+  im3 = loadImage('https://p5paradigms.s3.eu-central-1.amazonaws.com/Composition/images/staalmeesters3.png');
 
 }
 
@@ -87,6 +87,10 @@ function table2csv() {
 }
 
 function onP5Editor() {
-  console.log("Are we on the p5 editor?")
-  return document.location.ancestorOrigins[0].includes('editor.p5js.org')
+  //console.log("Are we on the p5 editor?")
+  parent = document.location.ancestorOrigins
+  if (parent.length) { // if it's in an iframe{}
+    return document.location.ancestorOrigins[0].includes('editor.p5js.org')
+  }
+  return false
 }

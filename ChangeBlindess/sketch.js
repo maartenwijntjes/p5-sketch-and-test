@@ -19,7 +19,7 @@ var spoiler = false;
 var mouseInCanvas = true;
 
 function preload() {
-  let input_url = 'https://materialcomv2.s3.eu-central-1.amazonaws.com/changeBlindness/input.csv'
+  let input_url = 'https://p5paradigms.s3.eu-central-1.amazonaws.com/ChangeBlindness/input.csv'
   input_data = loadTable(input_url, 'csv', 'header', load_images);
   output_data = new p5.Table();
   output_data.columns = ['pre', 'post', 'xfiducial', 'yfiducial', 'xchosen', 'ychosen', 'dist', 'rt (ms)', 'spoiler']
@@ -30,7 +30,7 @@ function preload() {
 function load_images() {
   // load_images is called AFTER the table is loaded. 
   // Otherwise, the code will continue with a table object that does not have data in yet.
-  var url = 'https://materialcomv2.s3.eu-central-1.amazonaws.com/changeBlindness/'
+  var url = 'https://p5paradigms.s3.eu-central-1.amazonaws.com/ChangeBlindness/'
   // is executed once input_data is loaded
   for (let i = 0; i < input_data.getRowCount(); i++) {
     // load the images and put them together into the trials list
@@ -212,7 +212,7 @@ function finished() {
 }
 
 function onP5Editor() {
-  console.log("Are we on the p5 editor?")
+  //console.log("Are we on the p5 editor?")
   parent = document.location.ancestorOrigins
   if (parent.length) { // if it's in an iframe{}
     return document.location.ancestorOrigins[0].includes('editor.p5js.org')
