@@ -37,8 +37,8 @@ let mListHeader=['baryX','baryY'];
 let timestamp;
 
 function preload() {
-  im=loadImage('https://materialcom.s3.eu-central-1.amazonaws.com/gaugefigure/'+stimname+'.jpg');
-  xy = loadTable('https://materialcom.s3.eu-central-1.amazonaws.com/gaugefigure/'+stimname+'.csv', 'csv','header');
+  im=loadImage('https://p5paradigms.s3.eu-central-1.amazonaws.com/GaugeFigure/'+stimname+'.jpg');
+  xy = loadTable('https://p5paradigms.s3.eu-central-1.amazonaws.com/GaugeFigure/'+stimname+'.csv', 'csv','header');
 }
 
 function setup() {
@@ -168,7 +168,7 @@ function finished() {
     expout.value = table2csv();
   } else {
     // This would work in the p5 editor
-    saveTable(output_data, 'data.csv');
+    saveTable(data, 'data.csv');
   }
 }
 
@@ -202,6 +202,10 @@ function thefun(){
 }
 
 function onP5Editor() {
-  console.log("Are we on the p5 editor?")
-  return document.location.ancestorOrigins[0].includes('editor.p5js.org')
+  //console.log("Are we on the p5 editor?")
+  parent = document.location.ancestorOrigins
+  if (parent.length) { // if it's in an iframe{}
+    return document.location.ancestorOrigins[0].includes('editor.p5js.org')
+  }
+  return false
 }

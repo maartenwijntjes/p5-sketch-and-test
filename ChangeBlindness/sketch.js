@@ -30,7 +30,7 @@ function preload() {
 function load_images() {
   // load_images is called AFTER the table is loaded. 
   // Otherwise, the code will continue with a table object that does not have data in yet.
-  var url = 'https://p5paradigms.s3.eu-central-1.amazonaws.com/ChangeBlindness/'
+  var url = 'https://p5paradigms.s3.eu-central-1.amazonaws.com/ChangeBlindness/images/'
   // is executed once input_data is loaded
   for (let i = 0; i < input_data.getRowCount(); i++) {
     // load the images and put them together into the trials list

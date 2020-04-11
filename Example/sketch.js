@@ -8,7 +8,7 @@ let counter = 0;
 let maxtrials = 10;
 
 function preload() {
-  im = loadImage('https://materialcom.s3.eu-central-1.amazonaws.com/template/images/1945.15.4.jpg');
+  im = loadImage('https://p5paradigms.s3.eu-central-1.amazonaws.com/Example/images/1945.15.4.jpg');
 }
 
 function setup() {
@@ -57,7 +57,7 @@ function finished() {
     expout.value = table2csv();
   } else {
     // This would work in the p5 editor
-    saveTable(output_data, 'data.csv');
+    saveTable(data, 'data.csv');
   }
 }
 
@@ -79,6 +79,10 @@ function table2csv() {
 }
 
 function onP5Editor() {
-  console.log("Are we on the p5 editor?")
-  return document.location.ancestorOrigins[0].includes('editor.p5js.org')
+  //console.log("Are we on the p5 editor?")
+  parent = document.location.ancestorOrigins
+  if (parent.length) { // if it's in an iframe{}
+    return document.location.ancestorOrigins[0].includes('editor.p5js.org')
+  }
+  return false
 }

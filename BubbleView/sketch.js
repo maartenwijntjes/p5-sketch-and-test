@@ -28,7 +28,7 @@ let clicked = false;
 
 let header = ['x', 'y', 'r', 'imagename'];
 
-let root = 'https://p5paradigms.s3.eu-central-1.amazonaws.com/BubbleView/stims/'
+let root = 'https://p5paradigms.s3.eu-central-1.amazonaws.com/BubbleView/images/'
 let imnameshort = 'wsj104.png';
 let imagename = root + imnameshort;
 

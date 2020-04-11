@@ -65,7 +65,7 @@ function finished() {
     expout.value = table2csv();
   } else {
     // This would work in the p5 editor
-    saveTable(output_data, 'data.csv');
+    saveTable(data, 'data.csv');
   }
 }
 
