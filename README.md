@@ -1,6 +1,6 @@
 # P5 paradigms
 
-A collection of example experiments for visual crowd research using [p5.js](https://p5js.org){:target="_blank"}. To run these instantly:
+A collection of example experiments for visual crowd research using [p5.js](https://p5js.org). To run these instantly:
 1. open https://requester.mturk.com or maybe https://requestersandbox.mturk.com is safer to start with (and login)
 2. 
 
