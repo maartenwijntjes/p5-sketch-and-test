@@ -1,10 +1,14 @@
 # P5 paradigms
 
-A collection of example experiments for visual crowd research using [p5.js](https://p5js.org). To run these instantly:
+This repository contains a collection of example experiments for visual crowd research using [p5.js](https://p5js.org). We found that for doing our own perceptual experiments online, the use of p5.js was kind of a revelation. To share our experiences, give some  background info about perception *and* a contemplation about the bigger context of *visual crowd research*, we wrote a paper that is almost in preprint. Here we share the practicalities. 
+
+## Instant examples
+
+ To run these instantly:
 1. open https://requester.mturk.com or maybe https://requestersandbox.mturk.com is safer to start with (and login)
 2. Click on New project.
 3. Select "other" from the templates and click "Create Project".
-4. Fill in the MTurk details, if you just want to quickly see if it actually works: Only fill in "Reward per response" and press "Design Layout".
+4. Fill in the MTurk details (impatient/hurry? -> only fill in "Reward per response") and press "Design Layout".
 5. Delete the code and paste one the experiment HTML codes here, press "Preview".
 6. Here you should be able to test the experiment already, after you finish the data will be shown on the screen. 
 7. Finish it and publish! 
@@ -25,13 +29,13 @@ Use a (p5.Table)[https://p5js.org/reference/#/p5.Table] to store your data in. I
 
 All the essentials that are needed in a p5.js sketch can be found in the Example sketch. 
 
-### and image/data/code storage
+### Image/data/code storage
 
-If you want to run an MTurk HIT, you need to have the images and data online, somewhere. That always gives headaches because servers don't like eachother content by default. This mechanisms is known as [Cross-Origin Resource Sharing (CORS)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS). If you have an experiment that needs both images and measurement lists, here are two options to consider:
-1. put your images on [imgur.com](https://imgur.com) and copy your table/array in your code.
+If you want to post an MTurk HIT, you need to have the images and data online, somewhere. That always gives headaches because servers don't necessarily like each others' content. This mechanisms is known as [Cross-Origin Resource Sharing (CORS)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS). If you have an experiment that needs both images and measurement lists, here are two options to consider:
+1. put your images on [imgur.com](https://imgur.com) and copy/type your measurement list as a table/array in your code.
 2. upload your images and .csv file on a webserver for which you can control the CORS settings.
 
-We used [Amazon S3](http://s3.console.aws.amazon.com/) and also put our HTML and .js files there. It is not necessary but it is nice to have all your experiment files in one place. On Amazon S3 you need to make your files public, obviously, and change the CORS settings. We found this, and it seems to work!
+The second option is best but also more complex. We used [Amazon S3](http://s3.console.aws.amazon.com/) as server and also put our HTML and .js files there. It is not necessary but it is nice to have all your experiment code and files in one place. On Amazon S3 you need to make your files public, obviously, and change the CORS settings. We found this, and it seems to work!
 
 ```
 
@@ -50,8 +54,15 @@ We used [Amazon S3](http://s3.console.aws.amazon.com/) and also put our HTML and
 
 
 ### HTML MTurk
+As read in the instructions of the instant examples, you need to put some HTML code on the MTurk requester portal. Off course you can also use the MTurk API, but that is not our scope here. By the way, I really recommend [Brady's MTurk Tutorial](https://bradylab.ucsd.edu/ttt/) for more info about clever HTML tricks. 
+
+After creating your p5.js sketch you have (again!) two options:
+1. Integrate your .js sketch in the HTML code
+2. Put your .js file on a server and create a link in the HTML code.  
+The latter option makes the HTML code clear, but if you want to go back and forth between the p5.js online editor and MTurk you can better paste the code. <!--If you happen to put your sketch.js file online, you might as well put the HTML file (with the sketch.js file) online, like we did. The HTML file will acually -->
 
 
+# Info about example experiments 
 
 
 ## ChangeBlindness
