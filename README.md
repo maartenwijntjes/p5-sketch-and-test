@@ -77,13 +77,27 @@ This is a nonsense experiment, but shows an image, collects click data, so shoul
 ```
 The MTurk crowd elements are needed as you'll need at least a button to submit the HIT when finished. Then the p5.js library is loaded (including the dom, not sure if this is still necessary?!). Lastly we put a link to the sketch. Instead of the link, you can also just copy-paste your whole p5 sketch (`<script>copy it here!</script>`) but mind that you use `canvas.parent('p5sketch')` in the `setup()` as that is used to *place* that sketch in the page layout. 
 
-After all this JavaScript loading, you can do HTML in `<crowd-form answer-format="flatten-objects">HERE</crowd-form>`.
+After all this JavaScript loading, you can do HTML in `<crowd-form answer-format="flatten-objects">HERE</crowd-form>`. The place to write your instructions and link the sketch should be evident from the Example.html. There is one important line: `<crowd-input hidden name="dataoutput" id="expout" placeholder=" " required></crowd-input>` which gets the data from the p5.js sketch. The 'required' is there that the HIT can be submitted after finishing the experiment. 
+
+In the sketch.js, that data comes from:
+```
+expout = document.getElementById('expout');
+expout.value = table2csv();
+```
+Where the table2scv() is a function that converts the P5.table to a csv thing. In the end, you'll end up with some kind of meta-csv, as the csv file will be part of a larger csv file. I did not experience much problems with that, but if you are not so experienced in data analysis, you probably have to do some copy-pasting.
 
 
 ## ChangeBlindness
 
+This experiment is a good example of how to load images using filenames from a .csv file and for collecting and saving data with p5.Table. Because we uploaded all files including the HTML files can check the experiment out [here](https://p5paradigms.s3.eu-central-1.amazonaws.com/ChangeBlindness/ChangeBlindness.html). Mind that some CSS tweaking would be advised as there are no margins (if in MTurk environment there are margins sort of automatically because I think it runs in an iFrame). 
+
+If you want to know more about this experiment you could check the [wikipedia site](https://en.wikipedia.org/wiki/Change_blindness) although you should always be a little cautious with wikipedia and science. 
+
 
 ## BubbleView
+The BubbleView paradigm was developed by NamWook Kim, Zoya Bylinskii et al. Check out their [project page](http://bubbleview.namwkim.org) for the publication a [github repository](https://github.com/cvzoya/bubbleview) for their data. The later project [TurkEyes](http://turkeyes.mit.edu) is also very much worth to visit as that is a whole collection of experiments (somebody should make p5.js versions!).
+
+With BubbleView you can collect click data that are similar to eye fixations and are thus a good metric for saliency in images. We choose this paradigm not only because we like it (because we do) but also because it demonstrates p5.js' capability of blurring and displaying selected pixels areas of an image. Check out the code yourself, or do a quick demo [here](https://p5paradigms.s3.eu-central-1.amazonaws.com/ChangeBlindness/BubbleView.html).
 
 
 ## GaugeFigure (attitude probe)
