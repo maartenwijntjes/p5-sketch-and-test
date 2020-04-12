@@ -62,7 +62,22 @@ After creating your p5.js sketch you have (again!) two options:
 The latter option makes the HTML code clear, but if you want to go back and forth between the p5.js online editor and MTurk you can better paste the code. <!--If you happen to put your sketch.js file online, you might as well put the HTML file (with the sketch.js file) online, like we did. The HTML file will acually -->
 
 
-# Info about example experiments 
+# Example experiments 
+We'll describe a few aspects of the example experiments below, for more background and results of tests we did, please check the preprint.
+
+
+## Example
+This is a nonsense experiment, but shows an image, collects click data, so should have allmost all the basics needed to experiment. Th HTML file starts with loading some packages:
+```
+<script src="https://assets.crowd.aws/crowd-html-elements.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.10.2/p5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.dom.min.js"></script>
+<!--Link to P5 sketch:-->
+<script src="https://materialcom.s3.eu-central-1.amazonaws.com/template/sketch.js"></script>
+```
+The MTurk crowd elements are needed as you'll need at least a button to submit the HIT when finished. Then the p5.js library is loaded (including the dom, not sure if this is still necessary?!). Lastly we put a link to the sketch. Instead of the link, you can also just copy-paste your whole p5 sketch (`<script>copy it here!</script>`) but mind that you use `canvas.parent('p5sketch')` in the `setup()` as that is used to *place* that sketch in the page layout. 
+
+After all this JavaScript loading, you can do HTML in `<crowd-form answer-format="flatten-objects">HERE</crowd-form>`.
 
 
 ## ChangeBlindness
@@ -75,7 +90,7 @@ The latter option makes the HTML code clear, but if you want to go back and fort
 
 ## Composition
 
-## Example
+
 
 
 
