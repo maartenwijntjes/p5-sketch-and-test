@@ -95,21 +95,30 @@ If you want to know more about this experiment you could check the [wikipedia si
 
 
 ## BubbleView
-The BubbleView paradigm was developed by NamWook Kim, Zoya Bylinskii et al. Check out their [project page](http://bubbleview.namwkim.org) for the publication a [github repository](https://github.com/cvzoya/bubbleview) for their data. The later project [TurkEyes](http://turkeyes.mit.edu) is also very much worth to visit as that is a whole collection of experiments (somebody should make p5.js versions!).
+The BubbleView paradigm was developed by NamWook Kim, Zoya Bylinskii et al. Check out their [project page](http://bubbleview.namwkim.org) for background and this [github repository](https://github.com/cvzoya/bubbleview) for data. The later project [TurkEyes](http://turkeyes.mit.edu) is also very much worth to visit because it is a collection of experiments (somebody should make p5.js versions!).
 
-With BubbleView you can collect click data that are similar to eye fixations and are thus a good metric for saliency in images. We choose this paradigm not only because we like it (because we do) but also because it demonstrates p5.js' capability of blurring and displaying selected pixels areas of an image. Check out the code yourself, or do a quick demo [here](https://p5paradigms.s3.eu-central-1.amazonaws.com/ChangeBlindness/BubbleView.html).
+With BubbleView you can collect click data that are similar to eye fixations and are thus a good metric for saliency in images. We choose this paradigm not only because we like it but also because it demonstrates p5.js' capability of blurring and displaying selected pixel areas of an image. Check out the code yourself, or do a quick demo [here](https://p5paradigms.s3.eu-central-1.amazonaws.com/ChangeBlindness/BubbleView.html).
 
 
 ## GaugeFigure (attitude probe)
+This task has been used often in research on 3D shape perception. The original paper can be found [here](http://dspace.library.uu.nl/bitstream/handle/1874/7542/kappers_92_surface_perception_pictures.pdf?sequence=1&isAllowed=y) and [this](https://dspace.library.uu.nl/bitstream/handle/1874/7566/kappers_96_pictorial_surface_local_depth.pdf?sequence=1) may be interesting complementary reading. 
+
+The observer adjusts the 3D orientation of a 'thumb stack'-ish shape: a disk with a rod sticking out. The task is to orient it such that the disk lies flat on the pictorial surface, while the rod sticks out perpendicularly. This is essentially the *perceived* local normal vector. You can do all kinds of cool stuff in the analysis of this data, just use the papers above to start looking for other studies.
+
+Our p5.js adaptation is probably written a bit inefficient/inelegant. I used some old Processing code I wrote years ago, that was based on old Psychtoolbox code from more years ago. If you want to rewrite it, you are very welcome! However inelegant as it is, it does work. Be aware that doing a GaugeFigure task also involves preparation (creating sample location based on triangulation) and analysis (e.g. reconstructing the global 3D relief), which are not in this code. Feel free to contact us if you would need help. 
+
+[Here](https://p5paradigms.s3.eu-central-1.amazonaws.com/ChangeBlindness/GaugeFigure.html) is a demo.
+
 
 ## Composition
 
+This is a very simple experiment, but not less important! It simply concerns the placement of a character in a composition, but it demonstrates the wide possibilities of visual crowd research. They are not limited to perception experiments but can also be used for these small preference task, and also annotations. Off course we know there are a zillion annotation tools available in the computer science community, but with p5.js it can be quite intuitive to make your own. 
 
-
-
+[Here](https://p5paradigms.s3.eu-central-1.amazonaws.com/ChangeBlindness/Composition.html) is a demo.
 
 
 ## Todo etc.
 1. It is possible to adjust your loading screen in p5.js, [here](https://github.com/processing/p5.js/wiki/p5.js-overview#loading-screen) is some info or you can watch [a cool Dan Shifmann instruction video](https://youtu.be/UWgDKtvnjIU).
 2. The examples did not make use of the fullscreen option, while this is pretty simpe to accomplish, and in some cases rather necessary, [here](https://p5js.org/reference/#/p5/fullscreen) is all you need to know. 
+3. You may want to have different pages with instructions etc. You can do that either in HTML or integrate it in the p5.js code. I think I would go for the p5.js code, but if you want to do it in HTML, maybe check out [Brady's MTurk tutorial](https://bradylab.ucsd.edu/ttt/). 
 
