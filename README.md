@@ -97,7 +97,7 @@ If you want to know more about this experiment you could check the [wikipedia si
 ## BubbleView
 The BubbleView paradigm was developed by NamWook Kim, Zoya Bylinskii et al. Check out their [project page](http://bubbleview.namwkim.org) for background and this [github repository](https://github.com/cvzoya/bubbleview) for data. The later project [TurkEyes](http://turkeyes.mit.edu) is also very much worth to visit because it is a collection of experiments (somebody should make p5.js versions!).
 
-With BubbleView you can collect click data that are similar to eye fixations and are thus a good metric for saliency in images. We choose this paradigm not only because we like it but also because it demonstrates p5.js' capability of blurring and displaying selected pixel areas of an image. Check out the code yourself, or do a quick demo [here](https://p5paradigms.s3.eu-central-1.amazonaws.com/ChangeBlindness/BubbleView.html).
+With BubbleView you can collect click data that are similar to eye fixations and are thus a good metric for saliency in images. We choose this paradigm not only because we like it but also because it demonstrates p5.js' capability of blurring and displaying selected pixel areas of an image. Check out the code yourself, or do a quick demo [here](https://p5paradigms.s3.eu-central-1.amazonaws.com/BubbleView/BubbleView.html).
 
 
 ## GaugeFigure (attitude probe)
@@ -107,14 +107,14 @@ The observer adjusts the 3D orientation of a 'thumb stack'-ish shape: a disk wit
 
 Our p5.js adaptation is probably written a bit inefficient/inelegant. I used some old Processing code I wrote years ago, that was based on old Psychtoolbox code from more years ago. If you want to rewrite it, you are very welcome! However inelegant as it is, it does work. Be aware that doing a GaugeFigure task also involves preparation (creating sample location based on triangulation) and analysis (e.g. reconstructing the global 3D relief), which are not in this code. Feel free to contact us if you would need help. 
 
-[Here](https://p5paradigms.s3.eu-central-1.amazonaws.com/ChangeBlindness/GaugeFigure.html) is a demo.
+[Here](https://p5paradigms.s3.eu-central-1.amazonaws.com/GaugeFigure/GaugeFigure.html) is a demo.
 
 
 ## Composition
 
 This is a very simple experiment, but not less important! It simply concerns the placement of a character in a composition, but it demonstrates the wide possibilities of visual crowd research. They are not limited to perception experiments but can also be used for these small preference task, and also annotations. Off course we know there are a zillion annotation tools available in the computer science community, but with p5.js it can be quite intuitive to make your own. 
 
-[Here](https://p5paradigms.s3.eu-central-1.amazonaws.com/ChangeBlindness/Composition.html) is a demo.
+[Here](https://p5paradigms.s3.eu-central-1.amazonaws.com/Composition/Composition.html) is a demo.
 
 
 ## Todo etc.
