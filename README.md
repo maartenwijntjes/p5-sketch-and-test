@@ -14,7 +14,7 @@ This repository contains a collection of example experiments for visual crowd re
 7. Finish it and publish! 
 
 
-## Setting up your own experiments:
+## Setting up your own experiments ([video 2](https://youtu.be/1gpCETF_OrQ))
 
 ### p5.js 
 
@@ -29,7 +29,7 @@ Use a (p5.Table)[https://p5js.org/reference/#/p5.Table] to store your data in. I
 
 All the essentials that are needed in a p5.js sketch can be found in the Example sketch. 
 
-### Image/data/code storage
+### Image/data/code storage ([video 3](https://youtu.be/ORLXzF5Kiwo))
 
 If you want to post an MTurk HIT, you need to have the images and data online, somewhere. That always gives headaches because servers don't necessarily like each others' content. This mechanisms is known as [Cross-Origin Resource Sharing (CORS)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS). If you have an experiment that needs both images and measurement lists, here are two options to consider:
 1. put your images on [imgur.com](https://imgur.com) and copy/type your measurement list as a table/array in your code.
@@ -62,7 +62,7 @@ After creating your p5.js sketch you have (again!) two options:
 The latter option makes the HTML code clear, but if you want to go back and forth between the p5.js online editor and MTurk you can better paste the code. <!--If you happen to put your sketch.js file online, you might as well put the HTML file (with the sketch.js file) online, like we did. The HTML file will acually -->
 
 
-# Example experiments 
+# Example experiments ([video 4](https://youtu.be/MP0ciAIy3-o))
 We'll describe a few aspects of the example experiments below, for more background and results of tests we did, please check the preprint.
 
 
