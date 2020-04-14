@@ -2,7 +2,7 @@
 
 This repository contains a collection of example experiments for visual crowd research using [p5.js](https://p5js.org). We found that for doing our own perceptual experiments online, the use of p5.js was kind of a revelation. To share our experiences, give some  background info about perception *and* a contemplation about the bigger context of *visual crowd research*, we wrote a paper that is almost in preprint. Here we share the practicalities. 
 
-## Instant examples
+## Instant example ([video 1](https://youtu.be/2g6cV_si2U0))
 
  To run these instantly:
 1. open https://requester.mturk.com or maybe https://requestersandbox.mturk.com is safer to start with (and login)
