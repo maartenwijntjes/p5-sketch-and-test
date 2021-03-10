@@ -112,11 +112,8 @@ function mouseClicked() {
   newRow.setNum('r', radius);
   newRow.setString('imagename', imnameshort);
 
-  if (clicked) {
-    clicked = true;
-  } else {
-    clicked = true;
-  }
+  clicked = true;
+
 }
 
 
@@ -131,13 +128,11 @@ function checkTrials() {
 }
 
 function finished() {
-  clicked = false;
-  if (!onP5Editor()) {
-    expout = document.getElementById('expout');
-    expout.value = table2csv();
+  if (onP5Editor()) {
+    saveTable(data, 'data.csv'); // This would work in the p5 editor
   } else {
-    // This would work in the p5 editor
-    saveTable(data, 'data.csv');
+    let expout = document.getElementById('expout');
+    expout.value = table2csv();
   }
 }
 
@@ -160,10 +155,9 @@ function table2csv() {
 
 
 function onP5Editor() {
-  //console.log("Are we on the p5 editor?")
-  parent = document.location.ancestorOrigins
-  if (parent.length) { // if it's in an iframe{}
-    return document.location.ancestorOrigins[0].includes('editor.p5js.org')
+  let document_ancestor = document.location.ancestorOrigins;
+  if (document_ancestor.length) { // if it's in an iframe{}
+    return document_ancestor[0].includes('editor.p5js.org');
   }
-  return false
+  return false;
 }

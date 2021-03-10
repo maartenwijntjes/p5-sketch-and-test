@@ -1,4 +1,3 @@
 1) It is possible to tweak the loading screen in P5!
-2) Reverse the logic of onP5editor() in the finished() thing
 3) Move to one S3 bucket? E.g. P5paradigms? I have that already, but then we have to change all paths...
 4) fullscreen could be implemented , which seems to work pretty well, maybe have that as an option for al the code.. check documentation because will only work after a mouse click. 
