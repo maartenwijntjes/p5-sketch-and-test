@@ -202,7 +202,7 @@ function draw() {
 
 function finished() {
   if (onP5Editor()) {
-    saveTable(data, 'data.csv'); // This would work in the p5 editor
+    saveTable(output_data, 'data.csv'); // This would work in the p5 editor
   } else {
     let expout = document.getElementById('expout');
     expout.value = table2csv();
